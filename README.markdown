@@ -2,9 +2,10 @@ Roboto fonts with fop
 ================================
 The aim of this small project is to help to use of roboto fonts in documents rendered by FOP.
 It consists from:
-  * roboto ttf included
-  * created metrics files for TTF
-  * configuration file for using embeded fonts
+
+ * roboto ttf included
+ * created metrics files for TTF
+ * configuration file for using embeded fonts
 
 What is roboto
 -------------------------
