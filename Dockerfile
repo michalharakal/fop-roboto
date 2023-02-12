@@ -5,7 +5,7 @@ WORKDIR /opt/fop
 ARG MAVEN_OPTS="-Xmx1G"
 
 RUN apk add --no-cache maven git curl tree \
-    && curl -L https://downloads.apache.org/xmlgraphics/fop/source/fop-2.6-src.tar.gz | tar zxv \
+    && curl -L https://downloads.apache.org/xmlgraphics/fop/source/fop-2.8-src.tar.gz | tar zxv \
     && cd fop-2.6 \
     && mvn clean -DskipTests install \
     && tree \
