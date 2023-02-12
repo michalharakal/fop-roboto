@@ -6,7 +6,7 @@ ARG MAVEN_OPTS="-Xmx1G"
 
 RUN apk add --no-cache maven git curl tree \
     && curl -L https://downloads.apache.org/xmlgraphics/fop/source/fop-2.8-src.tar.gz | tar zxv \
-    && cd fop-2.6 \
+    && cd fop-2.8 \
     && mvn clean -DskipTests install \
     && tree \
     && pwd \
@@ -28,7 +28,7 @@ RUN adduser \
     --uid "${uid}" \
     "${user}"
 
-COPY --from=builder /opt/fop/fop-2.6/fop/ /usr/local/lib/
+COPY --from=builder /opt/fop/fop-2.8/fop/ /usr/local/lib/
 COPY fonts /usr/local/lib/
 COPY conf /usr/local/lib/
 WORKDIR /work
