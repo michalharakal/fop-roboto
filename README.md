@@ -41,7 +41,7 @@ Use
 
 ## FOP in Docker
 
-This Docker image wraps version 2.6 of **apache-fop** inckusive embedded Roboto fonts with proper roboto configuration and inclusive **Java runtime environment** so it can be executed as transparent command line tool even on machines without installed Java.
+This Docker image wraps version 2.8 of **apache-fop** inckusive embedded Roboto fonts with proper roboto configuration and inclusive **Java runtime environment** so it can be executed as transparent command line tool even on machines without installed Java.
 
 ### Docker Image
 
