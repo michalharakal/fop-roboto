@@ -1,37 +1,30 @@
-FROM adoptopenjdk/openjdk11:alpine AS builder
+# build from ubuntu
+FROM ubuntu
 
-WORKDIR /opt/fop
+# set path for the FOP installation
+ENV PATH "$PATH:/usr/local/fop-2.9/fop"
 
-ARG MAVEN_OPTS="-Xmx1G"
+# update lists of packages
+RUN apt-get update
 
-RUN apk add --no-cache maven git curl tree \
-    && curl -L https://downloads.apache.org/xmlgraphics/fop/source/fop-2.8-src.tar.gz | tar zxv \
-    && cd fop-2.8 \
-    && mvn clean -DskipTests install \
-    && tree \
-    && pwd \
-    && ls -la
-FROM adoptopenjdk/openjdk11:alpine-jre
+# install the latest version of OpenJRE
+RUN apt-get install -y default-jre
 
-RUN apk add --no-cache tree
+# install wget
+RUN apt-get install -y wget
 
-ARG user=fopuser
-ARG group=fopuser
-ARG uid=1000
-ARG gid=1000
+# get the version 2.9 of FOP
+RUN wget https://archive.apache.org/dist/xmlgraphics/fop/binaries/fop-2.9-bin.tar.gz
 
-RUN adduser \
-    --disabled-password \
-    --gecos "" \
-    --home "$(pwd)" \
-    --no-create-home \
-    --uid "${uid}" \
-    "${user}"
+# unpack FOP into /usr/local
+RUN tar -xvzf fop-2.9-bin.tar.gz -C /usr/local
 
-COPY --from=builder /opt/fop/fop-2.8/fop/ /usr/local/lib/
-COPY fonts /usr/local/lib/
-COPY conf /usr/local/lib/
+COPY fonts /usr/local/lib
+COPY conf /usr/local/
 WORKDIR /work
-RUN tree /usr/local/lib
-ENTRYPOINT ["/usr/local/lib/fop", "-c", "/usr/local/lib/fop.xconf"]
 
+# entrypoint 
+ENTRYPOINT ["fop", "-c", "/usr/local/fop.xconf"]
+
+# default command will print the current version of FOP
+CMD ["-version"]
