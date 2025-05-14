@@ -1,5 +1,5 @@
 # build from ubuntu
-FROM ubuntu
+FROM ubuntu:22.04
 
 # set path for the FOP installation
 ENV PATH "$PATH:/usr/local/fop-2.9/fop"
